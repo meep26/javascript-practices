@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Check & Uncheck Checkbox</title>
+</head>
+<body>
+   <table>
+      <thead>
+         <th>
+            <input type="checkbox" name="checkAll" id="checkAll">
+         </th>
+         <th>Product</th>
+         <th>Price</th>
+      </thead>
+      <tbody>
+         <tr>
+            <td>
+               <input type="checkbox" name="checkItem[]" id="checkItem" data-id="1">
+            </td>
+            <td>
+               Apple
+            </td>
+            <td>
+               5.00
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <input type="checkbox" name="checkItem[]" id="checkItem" data-id="2">
+            </td>
+            <td>
+               Banana
+            </td>
+            <td>
+               7.00
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <input type="checkbox" name="checkItem[]" id="checkItem" data-id="3">
+            </td>
+            <td>
+               Calamansi
+            </td>
+            <td>
+               13.00
+            </td>
+         </tr>
+         <tr>
+            <td colspan=3 style='text-align: center;'>
+               <button type="button" id="getChecks">Get checks</button>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+   <script src="./script.js"></script>
+</body>
+</html>
