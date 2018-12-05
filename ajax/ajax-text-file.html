@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Ajax 1 - Text File</title>
+</head>
+<body>
+   <button id="getTextHandler">Get text</button>
+   <p id="text"></p>
+   <script>
+      document.getElementById('getTextHandler').addEventListener('click', getText);
+
+      function getText() {
+         var xhr = new XMLHttpRequest();
+
+         xhr.open('GET', 'files/sample.txt', true);
+
+         // DIRECT readyState 4
+         xhr.onload = function() {
+            if ( this.status == 200 ) {
+               document.getElementById('text').innerHTML = this.responseText;
+               console.log(this.responseText);
+            }
+            else if ( this.status == 404 ) {
+               document.getElementById('text').innerHTML = this.responseText;
+               console.log('Not found');
+            }
+         }
+         
+         // Error process  
+         xhr.onerror = function () {
+            console.log('Error occured when fetching the data');
+         }
+
+         // User for LOADERS
+         // xhr.onprogress = function() {
+         //    console.log('READYSTATE: ' + xhr.readyState);
+         // }
+         
+         // Commonly used for sending ajax
+         // xhr.onreadystatechange = function() {
+         //    if ( this.readyState == 3 ) {
+         //       console.log('Please wait...');
+         //    }
+         //    if ( this.readyState == 4 && this.status == 200 ) {
+         //       console.log(this.responseText);
+         //    }
+         // }
+
+         xhr.send();
+      }
+   </script>
+</body>
+</html>

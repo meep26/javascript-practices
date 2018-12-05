@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>AJAX - PHP</title>
+</head>
+<body>
+   <hr>
+   <h3>GET FORM</h3>
+   <form method="GET" id="formGetName" action="process.php">
+      <input type="text" name="name" id="txtName1">
+      <input type="submit" value="Send">
+   </form>
+
+   <h3>POST FORM</h3>
+   <form method="POST" id="formPostName" action="process.php">
+      <input type="text" name="name" id="txtName2">
+      <input type="submit" value="Send">
+   </form>
+
+   <div id="users"></div>
+
+   <script>
+      var txtName2 = document.getElementById('txtName2');
+      document.getElementById('formGetName').addEventListener('submit', formGetName);
+      document.getElementById('formPostName').addEventListener('submit', formPostName);
+      
+      getUsers();
+      function getUsers() {
+         var xhr = new XMLHttpRequest();
+         xhr.open('GET', 'php/get_users.php', true);
+         xhr.onload = function() {
+            if ( this.status == 200 ) {
+               var users = JSON.parse(this.responseText);
+               output = '';
+               
+               for ( var i in users ) {
+                  output += `
+                     <div class="user">
+                        <ul>
+                           <li>ID: ${users[i].id}</li>
+                           <li>Name: ${users[i].name}</li>
+                        </ul>
+                     </div>
+                  `
+               }
+               document.getElementById('users').innerHTML = output;
+            }
+         }
+         xhr.send();
+      }
+
+      function formGetName(e) {
+         e.preventDefault();
+         var name = document.getElementById('txtName1').value;
+         var xhr = new XMLHttpRequest();
+         
+         xhr.open('GET', 'php/add_user.php?name='+name, true);
+
+         xhr.onload = function() {
+            console.log(this.responseText);
+         }
+         xhr.send();
+      }
+
+      function formPostName(e) {
+         e.preventDefault();
+         var name = document.getElementById('txtName2').value;
+         var params = "name="+name;
+         var xhr = new XMLHttpRequest();
+         
+         xhr.open('POST', 'php/add_user.php', true);
+         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+         xhr.onload = function() {
+            if ( this.status == 200 ) {
+               txtName2.value = "";
+               txtName2.focus();
+               getUsers();
+            }
+         }
+         xhr.send(params);
+      }
+
+   </script>
+</body>
+</html>
