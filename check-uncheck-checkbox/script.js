@@ -16,7 +16,7 @@ const isChecked = () => {
 checker.addEventListener('change', isChecked);
 
 getCheck.addEventListener('click', () => {
-   const itemChecked = [];
+   let itemChecked = [];
    for (let i = 0; i < checkboxes.length; i++) {
       if (checkboxes[i].checked) {
          itemChecked.push(checkboxes[i].dataset.id);
@@ -25,11 +25,13 @@ getCheck.addEventListener('click', () => {
 
    // Check if the array is empty
    if (itemChecked.length < 1) {
-      console.log("No item(s) is checked");
+      itemChecked = "No item(s) is checked";
    }
    else {
-      console.log(itemChecked);
+      itemChecked = `Item checked: ${itemChecked}`;
    }
+   
+   document.getElementById('itemChecked').innerHTML = itemChecked;
 
 });
 
